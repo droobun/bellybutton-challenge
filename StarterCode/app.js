@@ -15,7 +15,7 @@ function dropdown() {
    
     bar_charts(sample_names[0]);
     demotable(sample_names[0]);
-    
+    bubble_chart(sample_names[0]);
 
   });
 }
@@ -51,6 +51,7 @@ Object.entries(meta_array[0]).forEach(entry => {
 function optionChanged(y){
   bar_charts(y);
   demotable(y);
+  bubble_chart(y);
   
 
 }
@@ -82,8 +83,34 @@ function bar_charts(x){
     };
     
     Plotly.newPlot('bar', bar_data, bar_layout);
-  
+    
+    var bubble_data = [
+      {
+        x: ids,
+        y: s_values,
+        text: labels,
+        mode: "markers",
+        marker: {
+          size: s_values,
+          color: ids,
+          colorscale: "Earth"
+        }
+      }
+    ];
 
-    });
+    // Create the layout for the bubble chart.
+    var bubble_layout = {
+      title: "Bacteria Cultures Per Sample",
+      margin: { t: 0 },
+      hovermode: "closest",
+      xaxis: { title: "OTU ID" },
+      margin: { t: 30}
+    };
+
+
+      Plotly.newPlot('bubble', bubble_data, bubble_layout);
+  });
 
 }
+
+
